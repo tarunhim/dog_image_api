@@ -41,3 +41,5 @@ app.use("/api/user", require("./routes/user"));
 app.listen(process.env.PORT, function () {
   console.log(`Server is running on ${process.env.PORT}...`);
 });
+
+module.exports.app = app;
