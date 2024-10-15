@@ -1,0 +1,84 @@
+Dog Image API
+
+This project implements a RESTful API for managing images, specifically dog pictures(Although u can save any picture, as there is no image recognition there), using Node.js, Express.js, PostgreSQL, and Jest. The images are stored in compressed form using sharp library as binary data (blobs) in a PostgreSQL database, and various operations like uploading, updating, deleting, and fetching the images are supported.
+
+Project Structure
+
+	•	Backend Framework: Express.js is used to build the server-side application.
+	•	Database: PostgreSQL is used for persisting user data and image files (stored as binary data).
+	•	Testing: Jest is used to write unit and integration tests for the API.
+
+Key Features:
+
+	1.	User Authentication:
+	•	Users need to register and log in to interact with the API.
+	•	Authentication is implemented using JWT (JSON Web Token). A valid token is required for most API requests.
+	2.	Image Management:
+	•	Images (such as dog pictures) are uploaded, compressed using the sharp library to reduce storage space, and stored in the database.
+	•	Images can be updated, fetched, or deleted as per user requirements.
+	•	Images are stored in binary format, allowing efficient storage in PostgreSQL as blobs.
+
+API Endpoints:
+
+	1.	User Registration & Authentication:
+	•	POST /api/user/register: Register a new user with a username and password. The password is encrypted before saving.
+	•	POST /api/user/login: Authenticate a user and return a JWT token for further requests.
+	2.	Image Management:
+	•	POST /api/dogimage/add: Upload a new image to the database. The image is compressed and stored as a blob.
+	•	PUT /api/dogimage/update: Update an existing image in the database.
+	•	DELETE /api/dogimage/delete: Delete an image from the database by its ID.
+	•	GET /api/dogimage/details: Fetch the details of a specific image by its ID, including the image in binary format.
+	•	GET /api/dogimage/list: Fetch a list of all uploaded images, including their details and binary data.
+	•	GET /api/dogimage/buffer: Return the raw binary data of an image to allow the client to recreate the image buffer.
+
+Image Storage:
+
+	•	Images are first compressed using sharp stored as binary data (blobs) in PostgreSQL.
+	•	The sharp library is used to compress the images before saving them, reducing storage requirements.
+
+Authentication:
+
+	•	JWT-based authentication is implemented.
+	•	After logging in, the user receives a token which is required for making API calls.
+	•	The token must be included in the Authorization header for each request: Authorization: Bearer <token>.
+
+Testing:
+
+	•	Jest is used to write unit tests and ensure the functionality of the API.
+	•	Tests include validating user registration, authentication, and CRUD operations for the images.
+
+
+Instructions to Run the Server
+
+To run the server, you need to configure the .env file with the following settings:
+
+PORT: 8082
+DB_HOST: localhost
+LOGIN_ID: postgres
+DB_PASSWORD: Tarun@123
+DB_PORT: 5432
+DB_NAME: dog_image_api
+TEST_DB_HOST: localhost
+TEST_LOGIN_ID: postgres
+TEST_DB_PASSWORD: Tarun@123
+TEST_DB_PORT: 5432
+TEST_DB_NAME: dog_image_api_test
+SECRET_KEY: q9KCH6kKD01FhOFvDXPt1JRFIdTEMu0Z
+
+After configuring the .env file, install the necessary dependencies by running the following command:
+
+npm install
+
+For development, start the server using Nodemon by executing:
+
+npm run dev
+
+For production, you can start the server with:
+
+npm start
+
+To run the test cases, use the following command:
+
+npm run test
+
+Make sure your PostgreSQL database is running before starting the server.
