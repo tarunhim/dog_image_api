@@ -13,6 +13,11 @@ beforeAll(async () => {
     await setupDatabase(); 
 });
 
+afterAll(async () => {
+    await sequelize.truncate({ cascade: true, restartIdentity: true }); // Drops all tables
+    await sequelize.close(); // Close the DB connection
+});
+
 let token = "";
 let imageId = "";
 
