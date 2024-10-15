@@ -98,3 +98,23 @@ module.exports.getImageList = async (req, res) => {
     res.status(500).send({ error: 'Error uploading file' });
   }
 }
+
+module.exports.getBuffer = async (req, res) => {
+  try {
+    const dogPic = await ImageMaster.findOne({
+      where: {
+        id: req.query.id,
+        isActive: true
+      }
+    })
+    if(!dogPic){
+      return res.status(404).send({ error: 'Image not found' });
+    }
+    console.log("lsdjfksl", dogPic.data)
+    res.set('Content-Type', 'image/jpeg');
+    return res.status(201).send(dogPic.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Error uploading file' });
+  }
+}

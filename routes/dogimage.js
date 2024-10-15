@@ -1,10 +1,10 @@
 const express   = require('express');
 const router    = express.Router();
-
+const { validateAccessToken } = require("../services/auth")
 const multer = require('multer');
 const maxSize = process.env.MAX_FILE_SIZE || 2000000;
 
-const { addImage, updateImage, deleteImage, getImageDetails, getImageList } = require("../controller/dogimage");
+const { addImage, updateImage, deleteImage, getImageDetails, getImageList, getBuffer } = require("../controller/dogimage");
 
 const upload = multer({ 
   limits: { fileSize: maxSize }, 
@@ -20,14 +20,16 @@ const upload = multer({
 /**
 * API routes for audittrails operation
 */
-router.post('/add', upload.single('dogPic') , addImage);
+router.post('/add', validateAccessToken, upload.single('dogPic') , addImage);
 
-router.patch('/update', upload.single('dogPic') , updateImage);
+router.patch('/update', validateAccessToken, upload.single('dogPic') , updateImage);
 
-router.delete('/delete', deleteImage);
+router.delete('/delete', validateAccessToken, deleteImage);
 
-router.get('/details', getImageDetails);
+router.get('/details', validateAccessToken, getImageDetails);
 
-router.get('/list', getImageList);
+router.get('/list', validateAccessToken, getImageList);
+
+router.get('/buffer', validateAccessToken, getBuffer)
 
 module.exports = router;
