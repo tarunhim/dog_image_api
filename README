@@ -1,4 +1,4 @@
-*Dog Image API*
+ *Dog Image API*
 
 This project implements a RESTful API for managing images, specifically dog pictures(Although u can save any picture, as there is no image recognition there), using Node.js, Express.js, PostgreSQL, and Jest. The images are stored in compressed form using sharp library as binary data (blobs) in a PostgreSQL database, and various operations like uploading, updating, deleting, and fetching the images are supported.
 
